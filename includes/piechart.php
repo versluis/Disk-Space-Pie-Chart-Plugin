@@ -9,7 +9,7 @@ $show_text = true; // true = show text, false = don't show text.
 $show_parts = false; // true = show parts, false = don't show parts.
 $label_form = 'square'; // 'square' or 'round' label.
 $width = 400;
-$background_color = 'f9f9f9'; // background-color of the chart...
+$background_color = 'ffffff'; // background-color of the chart...
 $text_color = '000000'; // text-color.
 $colors = array('FF5555', '0055CC', '7F99B2','F7EFC6', 'C6BE8C', 'CC6600','990000','520000','BFBFC1','808080'); // colors of the slices.
 $shadow_height = 25; // Height on shadown.
