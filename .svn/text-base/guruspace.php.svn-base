@@ -9,7 +9,7 @@ Author URI: http://wpguru.co.uk
 
 Copyright 2009-2010 by Jay Versluis (email : versluis2000@yahoo.com)
 
-This is Version 0.4 as of 03/01/2011
+This is Version 0.5 as of 23/09/2013
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as 
@@ -190,6 +190,7 @@ echo round(($usedspace / ($totalspace / 100)),1) . '*' . (100-(round(($usedspace
 <strong>Database Size:</strong><br />
 <hr>
 <strong>PHP Version:</strong><br />
+<strong>MySQL Version:</strong><br />
 
 
 </td>
@@ -200,6 +201,11 @@ echo round(($usedspace / ($totalspace / 100)),1) . '*' . (100-(round(($usedspace
 <?php db_size(); ?><br />
 <hr>
 <?php echo PHP_VERSION; ?><br />
+<?php 
+// display MySQL Version
+$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD);
+echo $mysqli->server_info;
+?><br />
 
 
 </td></tr>
@@ -211,10 +217,10 @@ echo round(($usedspace / ($totalspace / 100)),1) . '*' . (100-(round(($usedspace
 <p>This plugin was brought to you by<br />
 <a href="http://wpguru.co.uk" target="_blank"><img src="
 <?php 
-echo plugins_url('images/guru-header.jpg', __FILE__);
-?>" width="500"></a>
+echo plugins_url('images/guru-header-2013.png', __FILE__);
+?>" width="400"></a>
 </p>
-<p><a href="http://wpguru.co.uk/2010/12/disk-space-pie-chart-plugin/" target="_blank">Plugin by Jay Versluis</a> | <a href="http://www.peters1.dk/webtools/php/lagkage.php?sprog=en" target="_blank">Pie Chart Script by Rasmus Peters</a> | <a href="http://wpguru.co.uk/hosting/">Upgrade Space</a> | <a href="http://wpguru.co.uk/say-thanks/" target="_blank">Buy me a Coffee</a> ;-)</p>
+<p><a href="http://wpguru.co.uk/2010/12/disk-space-pie-chart-plugin/" target="_blank">Plugin by Jay Versluis</a> | <a href="http://www.peters1.dk/webtools/php/lagkage.php?sprog=en" target="_blank">Pie Chart Script by Rasmus Peters</a> | <a href="http://wphosting.tv" target="_blank">WP Hosting</a> | <a href="http://wpguru.co.uk/say-thanks/" target="_blank">Buy me a Coffee</a> ;-)</p>
 
 <?php
 
@@ -302,10 +308,13 @@ else echo round(($freespace / $spacecalc),2) . " " . $opt_val2;
 
 <?php if (!empty($this->memory['percent'])) : ?>
 
+<?php 
+// thanks to Jure for the Division by Zero bugfix
+$perc = $totalspace==false ? 100 : round(($usedspace / ($totalspace / 100)),1); ?>
 <div class="progressbar">
 <div class="" style="height:2em; border:1px solid #DDDDDD; background-color: #0055cc">
-<div class="" style="width: <?php echo round(($usedspace / ($totalspace / 100)),1); ?>%;height:100%;background-color:#f55;;border-width:0px;text-shadow:0 1px 0 #000000;color:#FFFFFF;text-align:right;font-weight:bold;">
-<div style="padding:6px"><?php echo round(($usedspace / ($totalspace / 100)),0); ?>%</div></div>
+<div class="" style="width: <?php echo $perc; ?>%;height:100%;background-color:#f55;;border-width:0px;text-shadow:0 1px 0 #000000;color:#FFFFFF;text-align:right;font-weight:bold;">
+<div style="padding:6px"><?php echo $perc; ?>%</div></div>
 </div> 
 </div>
 				<?php endif; ?>

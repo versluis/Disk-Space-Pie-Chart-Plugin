@@ -10,8 +10,8 @@ http://plugins.svn.wordpress.org:80
 2013-09-23T21:11:54.607909Z
 777486
 versluis
-
-
+has-props
+has-prop-mods
 
 
 
@@ -62,14 +62,14 @@ versluis
 
 guruspace.php
 file
+777507
 
 
 
-
-2013-09-23T21:28:26.000000Z
-e0db62096ae19a7e0d6bc022c4fd703c
-2011-07-06T08:21:07.561085Z
-405251
+2013-09-23T22:02:31.000000Z
+d8ad531201faf5bef8e9db507062e90b
+2013-09-23T22:07:59.329092Z
+777507
 versluis
 
 
@@ -92,7 +92,7 @@ versluis
 
 
 
-10592
+10492
 
 images
 dir
@@ -136,14 +136,14 @@ has-props
 
 readme.txt
 file
+777507
 
 
 
-
-2013-09-23T21:28:26.000000Z
-9a0ae34bb4a84116db094f00809ef9b7
-2011-07-06T08:21:07.561085Z
-405251
+2013-09-23T22:04:48.000000Z
+dbd9499e46e008a78c8d8b9a549fc6d4
+2013-09-23T22:07:59.329092Z
+777507
 versluis
 
 
@@ -166,7 +166,7 @@ versluis
 
 
 
-5183
+5235
 
 screenshot-2.jpg
 file
