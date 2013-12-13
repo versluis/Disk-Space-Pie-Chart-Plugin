@@ -3,8 +3,8 @@ Contributors: versluis
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=34B76TPRWMWAE
 Tags: disk space, hosting space, web space, pie chart
 Requires at least: 2.7
-Tested up to: 3.6.1
-Stable tag: 0.4
+Tested up to: 3.8
+Stable tag: 0.6
 
 Shows your server space (free and used) as a funky Pie Chart in your backend. It also shows a percentage bar in your WordPress dahsboard.
 
@@ -63,6 +63,10 @@ This gives you a quick overview of what your Dashboard and Backend will look lik
 These screenshots may not show up because I haven't figured out how to use this repository yet...
 
 == Changelog ==
+
+= 0.6 =
+Tweaked Pie Chart background colour to match WordPress 3.8
+Added link to GPL license
 
 = 0.5 =
 Fixed Division by Zero bug (thanks Jure!)

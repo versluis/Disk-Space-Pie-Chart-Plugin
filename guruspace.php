@@ -4,12 +4,15 @@ Plugin Name: Disk Space Pie Chart
 Plugin URI: http://wpguru.co.uk/2010/12/disk-space-pie-chart-plugin/
 Description: Displays your current server space usage in your Dashboard and as funky Pie Chart. It also shows your Database usage. Nice!
 Author: Jay Versluis
-Version: 0.4
+Version: 0.5
 Author URI: http://wpguru.co.uk
+License: GPL2
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Copyright 2009-2010 by Jay Versluis (email : versluis2000@yahoo.com)
+Disk Space Pie Chart, copyright 2009-2014 by Jay Versluis (email : versluis2000@yahoo.com)
+This plugin is distributed under the terms of the GNU GPL License.
 
-This is Version 0.5 as of 23/09/2013
+This is Version 0.6 as of 13/12/2013
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as 
@@ -205,6 +208,7 @@ echo round(($usedspace / ($totalspace / 100)),1) . '*' . (100-(round(($usedspace
 // display MySQL Version
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD);
 echo $mysqli->server_info;
+$mysqli->close();
 ?><br />
 
 
@@ -218,7 +222,7 @@ echo $mysqli->server_info;
 <a href="http://wpguru.co.uk" target="_blank"><img src="
 <?php 
 echo plugins_url('images/guru-header-2013.png', __FILE__);
-?>" width="400"></a>
+?>" width="300"></a>
 </p>
 <p><a href="http://wpguru.co.uk/2010/12/disk-space-pie-chart-plugin/" target="_blank">Plugin by Jay Versluis</a> | <a href="http://www.peters1.dk/webtools/php/lagkage.php?sprog=en" target="_blank">Pie Chart Script by Rasmus Peters</a> | <a href="http://wphosting.tv" target="_blank">WP Hosting</a> | <a href="http://wpguru.co.uk/say-thanks/" target="_blank">Buy me a Coffee</a> ;-)</p>
 
