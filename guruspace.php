@@ -4,7 +4,7 @@ Plugin Name: Disk Space Pie Chart
 Plugin URI: http://wpguru.co.uk/2010/12/disk-space-pie-chart-plugin/
 Description: Displays your current server space usage in your Dashboard and as funky Pie Chart. It also shows your Database usage. Nice!
 Author: Jay Versluis
-Version: 0.5
+Version: 0.6
 Author URI: http://wpguru.co.uk
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
