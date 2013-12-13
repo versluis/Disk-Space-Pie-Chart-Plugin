@@ -65,31 +65,31 @@ These screenshots may not show up because I haven't figured out how to use this 
 == Changelog ==
 
 = 0.6 =
-Tweaked Pie Chart background colour to match WordPress 3.8
-Added link to GPL license
+* Tweaked Pie Chart background colour to match WordPress 3.8
+* Added link to GPL license
 
 = 0.5 =
-Fixed Division by Zero bug (thanks Jure!)
-Tweaked some colours to better blend with WordPress Core
-Added MySQL Server Version
+* Fixed Division by Zero bug (thanks Jure!)
+* Tweaked some colours to better blend with WordPress Core
+* Added MySQL Server Version
 
 = 0.4 =
-Fixed dashboard widget display in WordPress 3.2 (Thanks Dan!)
-Replaced hard coded links with dynamic ones
-Updated Folder Structure in accordance with WordPress Best Coding Standards
-Added default unit value for first-time-user (now defaults to GB rather than nothing) 
-Changed Donation Link (Buy me a Coffee)
+* Fixed dashboard widget display in WordPress 3.2 (Thanks Dan!)
+* Replaced hard coded links with dynamic ones
+* Updated Folder Structure in accordance with WordPress Best Coding Standards
+* Added default unit value for first-time-user (now defaults to GB rather than nothing) 
+* Changed Donation Link (Buy me a Coffee)
 
 = 0.3 =
 
-Certified WordPress 3.1 readiness.
-Added Unlimited Option: On some hosts (like Hostgator) you'll get "unlmited" disk space. I've amended the plugin so that you can enter 0 or leave the space blank. You'll always have 100% free space and the pie chart won't get confused.
+* Certified WordPress 3.1 readiness.
+* Added Unlimited Option: On some hosts (like Hostgator) you'll get "unlmited" disk space. I've amended the plugin so that you can enter 0 or leave the space blank. You'll always have 100% free space and the pie chart won't get confused.
 
 = 0.2 =
 
-Added a drop-down menu so you an easily choose if you'd like things displayed in MB or GB.
-Added Database Size Count courtesy of Chris Rabiet's WP Database Plugin (http://wordpress.org/extend/plugins/db-size/)
-Added numeric display of space underneath pie charts - like in the dashboard widget.
+* Added a drop-down menu so you an easily choose if you'd like things displayed in MB or GB.
+* Added Database Size Count courtesy of Chris Rabiet's WP Database Plugin (http://wordpress.org/extend/plugins/db-size/)
+* Added numeric display of space underneath pie charts - like in the dashboard widget.
 
 = 0.1 =
 
