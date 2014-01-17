@@ -14,3 +14,5 @@
 .svn/text-base/readme.txt.svn-base
 
 .svn/text-base/readme.txt.svn-base
+
+*.xml
