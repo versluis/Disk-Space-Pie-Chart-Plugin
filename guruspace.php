@@ -79,9 +79,11 @@ function guruspace() {
     $opt_name = 'guru_space';
     $opt_name2 = 'guru_unit';
 	$opt_name3 = 'guruspace_receive_emails';
+	
     $data_field_name = 'guru_space';
     $data_field_name2 = 'guru_unit';
 	$data_field_name3 = 'guruspace_receive_emails';
+	
 	$hidden_field_name = 'guruspace_hidden';
 
     // Read in existing option value from database
@@ -127,7 +129,7 @@ function guruspace() {
     <?php _e("How much webspace have you got:", 'guruspace-menu' ); ?>
     <input type="text" name="<?php echo $data_field_name; ?>" value="<?php echo $opt_val; ?>" size="5">
     &nbsp;
-    <select name="guru_unit">
+    <select name="<?php echo $data_field_name2; ?>">
       <option value="GB" <?php if ($opt_val2 == "GB") echo 'selected'; ?>>GiB (GB)</option>
       <option value="MB" <?php if ($opt_val2 == "MB") echo 'selected'; ?>>MiB (MB)</option>
     </select>
@@ -135,9 +137,9 @@ function guruspace() {
   <p><em><?php echo 'You are currently displaying values in ' . $opt_val2; ?>. Leave BLANK if you're lucky enough to have unlimited space.</em></p>
   
   <p>Would you like to receive email notifications when you reach 95% usage? &nbsp;
-  <select name="guru_unit">
-      <option value="yes" <?php if ($opt_val2 == "GB") echo 'selected'; ?>>Yes please!</option>
-      <option value="no" <?php if ($opt_val2 == "MB") echo 'selected'; ?>>No thanks</option>
+  <select name="<?php echo $data_field_name3; ?>">
+      <option value="yes" <?php if ($opt_val3 == "yes") echo 'selected'; ?>>Yes please!</option>
+      <option value="no" <?php if ($opt_val3 == "no") echo 'selected'; ?>>No thanks</option>
     </select>
     </p>
   
