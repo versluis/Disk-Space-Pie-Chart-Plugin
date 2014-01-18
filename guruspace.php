@@ -78,15 +78,16 @@ function guruspace() {
     // variables for the field and option names 
     $opt_name = 'guru_space';
     $opt_name2 = 'guru_unit';
-    $hidden_field_name = 'guruspace_hidden';
+	$opt_name3 = 'guruspace_receive_emails';
     $data_field_name = 'guru_space';
     $data_field_name2 = 'guru_unit';
-
+	$data_field_name3 = 'guruspace_receive_emails';
+	$hidden_field_name = 'guruspace_hidden';
 
     // Read in existing option value from database
     $opt_val = get_option( $opt_name );
     $opt_val2 = get_option ($opt_name2 );
-
+	$opt_val3 = get_option ($opt_name3 );
 
     // See if the user has posted us some information
     // If they did, this hidden field will be set to 'Y'
@@ -94,10 +95,12 @@ function guruspace() {
         // Read their posted value
         $opt_val = $_POST[ $data_field_name ];
         $opt_val2 = $_POST[ $data_field_name2 ];
+		$opt_val3 = $_POST[ $data_field_name3 ];
 
         // Save the posted value in the database
         update_option( $opt_name, $opt_val );
         update_option( $opt_name2, $opt_val2 );
+		update_option( $opt_name3, $opt_val3 );
 
         // Put a "settings updated" message on the screen
 ?>
@@ -130,6 +133,15 @@ function guruspace() {
     </select>
   </p>
   <p><em><?php echo 'You are currently displaying values in ' . $opt_val2; ?>. Leave BLANK if you're lucky enough to have unlimited space.</em></p>
+  
+  <p>Would you like to receive email notifications when you reach 95% usage? &nbsp;
+  <select name="guru_unit">
+      <option value="yes" <?php if ($opt_val2 == "GB") echo 'selected'; ?>>Yes please!</option>
+      <option value="no" <?php if ($opt_val2 == "MB") echo 'selected'; ?>>No thanks</option>
+    </select>
+    </p>
+  
+  
   <p class="submit">
     <input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
   </p>
@@ -351,7 +363,10 @@ return $content;
 
 // send an email when approaching space limit
 // @since 0.7
-function guruspaceMail() {
+function guruspaceSendMail() {
+	
+	// determine if email is required
+	
 	
 	// construct the components for our email
 	$recepients = get_option('admin_email');
@@ -369,10 +384,13 @@ function guruspaceMail() {
 // moved here @since 0.7
 function guruspaceRefreshSpace () {
 	
-	// $output = substr(shell_exec('pwd'),0,-9);
-	// $usedspace = substr(shell_exec('du -s ' . $output),0,-(strlen($output)+1));
-	// update_option ('guruspace_cached_space', $usedspace);
+	$output = substr(shell_exec('pwd'),0,-9);
+	$usedspace = substr(shell_exec('du -s ' . $output),0,-(strlen($output)+1));
+	update_option ('guruspace_cached_space', $usedspace);
 	return $usedspace;
+	
+	// also trigger email if required
+	guruspaceSendEmail();
 }
 // call this via scheduled event every day
 add_action('diskspacepiechart', 'guruspaceRefreshSpace');

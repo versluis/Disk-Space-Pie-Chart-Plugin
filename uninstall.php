@@ -24,6 +24,7 @@ if (!defined('WP_UNINSTALL_PLUGIN')) exit();
 delete_option ('guru_unit');
 delete_option ('guru_space');
 delete_option ('guruspace_cached_space');
+delete_option ('guruspace_receive_emails');
 
 // UNSCHEDULE CRON EVENT
 wp_clear_scheduled_hook( 'diskspacepiechart' ); 
