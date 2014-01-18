@@ -45,15 +45,35 @@ if (!get_option('guru_unit')) {
 	update_option ('guru_unit', 'MB');
 }
 
+// DAILY CRON JOB
+// caches the output of the shell command in our database
+// @since 0.7
 
-// displays the page content for the admin submenu
+// create daily event
+function guruspace_cron_activation() {
+	if( !wp_next_scheduled( 'diskspacepiechart' ) ) {  
+	   wp_schedule_event( time(), 'daily', 'diskspacepiechart' );  
+	}
+}
+add_action('wp', 'guruspace_cron_activation');
+
+// unschedule upon deactivation
+function guruspace_cron_deactivation() {	
+$timestamp = wp_next_scheduled ('diskspacepiechart');
+wp_unschedule_event ($timestamp, 'diskspacepiechart');
+} 
+register_deactivation_hook (__FILE__, 'guruspace_cron_deactivation');
+
+
+// MAIN FUNCTION
 function guruspace() {
 
-//must check that the user has the required capability 
+	//must check that the user has the required capability 
     if (!current_user_can('manage_options'))
     {
       wp_die( __('You do not have sufficient permissions to access this page.') );
     }
+	
 
     // variables for the field and option names 
     $opt_name = 'guru_space';
@@ -324,7 +344,10 @@ $this->check_memory_usage();
 return $content;
 		}
 
-	}
+} // end of main function
+
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
 
 // send an email when approaching space limit
 // @since 0.7
@@ -346,19 +369,23 @@ function guruspaceMail() {
 // moved here @since 0.7
 function guruspaceRefreshSpace () {
 	
-	$output = substr(shell_exec('pwd'),0,-9);
-	$usedspace = substr(shell_exec('du -s ' . $output),0,-(strlen($output)+1));
-	update_option ('guruspace_cached_space', $usedspace);
+	// $output = substr(shell_exec('pwd'),0,-9);
+	// $usedspace = substr(shell_exec('du -s ' . $output),0,-(strlen($output)+1));
+	// update_option ('guruspace_cached_space', $usedspace);
 	return $usedspace;
 }
+// call this via scheduled event every day
+add_action('diskspacepiechart', 'guruspaceRefreshSpace');
 
 // check current disk space
 // @since 0.7
 function guruspaceCheckSpace () {
 	
 	// return cached result
-	// guruspaceRefreshSpace();
-	return guruspaceRefreshSpace();
+	$cachedResult = get_option('guruspace_cached_space');
+	if ($cachedResult) {
+		return $cachedResult;
+	}
 }
 
 
