@@ -249,11 +249,14 @@ echo guruspaceServerVersion();
 <p>You're currently using <?php echo round(($usedspace / $spacecalc),2) . $opt_val2; ?> of HDD space. Meanwhile, your Database has grown to
   <?php db_size(); ?>
   . </p>
-<p>This plugin was brought to you by<br />
+<p>
   <a href="http://wpguru.co.uk" target="_blank"><img src="
 <?php 
 echo plugins_url('images/guru-header-2013.png', __FILE__);
 ?>" width="300"></a> </p>
+
+<p><a href="http://wpguru.co.uk/2010/12/disk-space-pie-chart-plugin/" target="_blank">Plugin by Jay Versluis</a> | <a href="http://www.peters1.dk/webtools/php/lagkage.php?sprog=en" target="_blank">Pie Chart Script by Rasmus Peters</a> | <a href="http://wphosting.tv" target="_blank">WP Hosting</a></p>
+
 <p><span><!-- Social Buttons -->
 
 <!-- Google+ -->
@@ -277,19 +280,19 @@ echo plugins_url('images/guru-header-2013.png', __FILE__);
 <!-- Facebook -->
 <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FThe-WP-Guru%2F162188713810370&amp;width&amp;layout=button_count&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=21&amp;appId=186277158097599" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:21px;" allowTransparency="true"></iframe>
 
-
 </span></p>
-<p><a href="http://wpguru.co.uk/2010/12/disk-space-pie-chart-plugin/" target="_blank">Plugin by Jay Versluis</a> | <a href="http://www.peters1.dk/webtools/php/lagkage.php?sprog=en" target="_blank">Pie Chart Script by Rasmus Peters</a> | <a href="http://wphosting.tv" target="_blank">WP Hosting</a> | <a href="http://wpguru.co.uk/say-thanks/" target="_blank">Buy me a Coffee</a> ;-)</p>
+
 <?php
 
 ////////////////////////////////////////
 // TESTING AREA
-
+/*
 if (WP_DEBUG) {
 	echo '<p>TESTING AREA - displayed only when WP_DEBUG is defined in your installation: ';
 	echo guruspaceSendMail();
 	echo '</p>';
 }
+*/
 
 
 ?>
