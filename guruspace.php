@@ -4,7 +4,7 @@ Plugin Name: Disk Space Pie Chart
 Plugin URI: http://wpguru.co.uk/2010/12/disk-space-pie-chart-plugin/
 Description: Displays your current server space usage in your Dashboard and as funky Pie Chart. It also shows your Database usage. Nice!
 Author: Jay Versluis
-Version: 0.7 Beta
+Version: 0.7 Beta 3
 Author URI: http://wpguru.co.uk
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -48,6 +48,17 @@ if (!get_option('guru_unit')) {
 // DAILY CRON JOB
 // caches the output of the shell command in our database
 // @since 0.7
+
+// for testing: create "everyminute" schedule
+function cron_add_minute( $schedules ) {
+	// Adds once every minute to the existing schedules.
+    $schedules['everyminute'] = array(
+	    'interval' => 60,
+	    'display' => __( 'Once Every Minute' )
+    );
+    return $schedules;
+}
+add_filter( 'cron_schedules', 'cron_add_minute' );
 
 // create daily event
 function guruspace_cron_activation() {
@@ -163,14 +174,12 @@ define("alertlevel",4);
 function file_size_info($filesize) {
 	$bytes = array('KB', 'KB', 'MB', 'GB', 'TB');
 
-# values are always displayed
+	# values are always displayed
 	if ($filesize < 1024) $filesize = 1;
 
-# in at least kilobytes.
+	# in at least kilobytes.
 	for ($i = 0; $filesize > 1024; $i++) $filesize /= 1024;
-
 	$file_size_info['size'] = round($filesize,3);
-
 	$file_size_info['type'] = $bytes[$i];
 
 return $file_size_info; } 
@@ -228,10 +237,10 @@ echo round(($usedspace / ($totalspace / 100)),1) . '*' . (100-(round(($usedspace
       <hr>
       <?php echo PHP_VERSION; ?><br />
       <?php 
+
 // display MySQL Version
-$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD);
-echo $mysqli->server_info;
-$mysqli->close();
+echo guruspaceServerVersion();
+
 ?>
       <br /></td>
   </tr>
@@ -247,6 +256,13 @@ echo plugins_url('images/guru-header-2013.png', __FILE__);
 ?>" width="300"></a> </p>
 <p><a href="http://wpguru.co.uk/2010/12/disk-space-pie-chart-plugin/" target="_blank">Plugin by Jay Versluis</a> | <a href="http://www.peters1.dk/webtools/php/lagkage.php?sprog=en" target="_blank">Pie Chart Script by Rasmus Peters</a> | <a href="http://wphosting.tv" target="_blank">WP Hosting</a> | <a href="http://wpguru.co.uk/say-thanks/" target="_blank">Buy me a Coffee</a> ;-)</p>
 <?php
+
+////////////////
+// TESTING AREA
+echo '<p>TESTING: ';
+echo guruspaceSendMail();
+echo '</p>';
+
 
 ?>
 <?php
@@ -367,19 +383,45 @@ return $content;
 // @since 0.7
 function guruspaceSendMail() {
 	
-	// determine if email is required
+	// grab used space
+	$usedspace = guruspaceCheckSpace();
 	
+	if (get_option('guru_unit') == 'GB') {
+	$spacecalc = 1024 * 1024;
+	}
+	else {
+	$spacecalc = 1024;
+	}
 	
-	// construct the components for our email
-	$recepients = get_option('admin_email');
-	$subject = 'Disk Space at ' . get_option('blogname');
-	$message = 'Hi there! This is the Disk Space Pie Chart plugin from your website ' . get_option('blogname') . '. I just wanted to let you know that you are approaching the disk space limit you had setup. \n\n';
+	// read in how much space we have in our package
+	$totalspace = (get_option('guru_space') * $spacecalc);
+	$freespace = (get_option('guru_space') * $spacecalc) - $usedspace;
+	$usage = round(($usedspace / ($totalspace / 100)),1);
 	
-	// let's send it 
-	$success = mail($recepients, $subject, $message);
-	if (!$success && WP_DEBUG) {
-		echo 'Could not send notification mail from Disk Space Pie Chart plugin.';
-	} 
+	// send an email if we're over 95% usage
+	if (get_option('guruspace_receive_emails') == 'yes') {
+		
+		echo '<p>Sending Email</p>';
+		// construct the components for our email
+		$recepients = get_option('admin_email');
+		$subject = 'Disk Space at ' . get_option('blogname');
+		
+		$headers = 'From: '.get_option('blogname')." <".get_option('admin_email').">";
+		
+		$message = 'Hi there! This is the Disk Space Pie Chart plugin from your website ' . get_option('blogname');
+		$message = $message . ".\n\nI just wanted to let you know that you are approaching the disk space limit you have setup. \n\nRight now you are using " . $usage . '% of your total ' . get_option('guru_space');
+		$message = $message . get_option('guru_unit') . ". \n\n\n\nAll the best, your Disk Space Pie Chart Plugin ;-)";
+		
+		// let's send it 
+		$success = mail($recepients, $subject, $message, $headers);
+		if (!$success && WP_DEBUG) {
+			echo 'Could not send notification mail from Disk Space Pie Chart plugin.';
+		} 
+	}
+	
+	// testing
+	$testreturn = 'totalspace = ' . $totalspace . ' | freespace = ' . $freespace . ' | usage = '.$usage . ' | recipients = ' . $recepients . ' | headers = '.$headers .' | message = '.$message;
+	return $testreturn;
 }
 
 // perform expensive disk read and add it to the database for quick access
@@ -408,7 +450,20 @@ function guruspaceCheckSpace () {
 	}
 }
 
-
+// return MySQL Version
+function guruspaceServerVersion () {
+	
+	$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+	if (mysqli_connect_errno($mysqli)) {
+		$myServerVersion = 'Unknown (' . mysqli_connect_error() . ')';
+		
+		} else {
+			$myServerVersion = $mysqli->server_info;
+		}
+	$mysqli->close();
+	
+	return $myServerVersion;
+}
 	
 
 // Start this plugin once all other plugins are fully loaded
